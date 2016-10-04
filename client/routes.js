@@ -11,9 +11,84 @@ Router.map(function () {
   /***************************************************************
    * Define custom routes
    * *************************************************************/
+   this.route('IdentifySubproblemsTutorial', {
+     path: 'big-idea/identify-t/',
+     template: 'IdentifySubproblemsTutorial',
+     subscriptions: function() {
+      //  this.subscribe('problems');
+       // this.subscribe('abstracts').wait();
+     },
+     onBeforeAction: function() {
+       if (this.ready()) {
+         logger.debug("Data ready");
+         this.next();
+       }
+     },
+     action: function() {
+       if (this.ready()) {
+         this.render();
+       } else {
+         this.render('loading');
+       }
+     },
+     // onAfterAction: function() {
+     //
+     // }
+   });
+
   this.route('IdentifySubproblems', {
     path: 'big-idea/identify/',
     template: 'IdentifySubproblems',
+    subscriptions: function() {
+      this.subscribe('problems');
+      // this.subscribe('abstracts').wait();
+    },
+    onBeforeAction: function() {
+      if (this.ready()) {
+        logger.debug("Data ready");
+        this.next();
+      }
+    },
+    action: function() {
+      if (this.ready()) {
+        this.render();
+      } else {
+        this.render('loading');
+      }
+    },
+    // onAfterAction: function() {
+    //
+    // }
+  });
+
+  this.route('SubproblemTreeTutorial', {
+    path: 'big-idea/tree-t/',
+    template: 'SubproblemTreeTutorial',
+    subscriptions: function() {
+      this.subscribe('problems');
+      // this.subscribe('abstracts').wait();
+    },
+    onBeforeAction: function() {
+      if (this.ready()) {
+        logger.debug("Data ready");
+        this.next();
+      }
+    },
+    action: function() {
+      if (this.ready()) {
+        this.render();
+      } else {
+        this.render('loading');
+      }
+    },
+    // onAfterAction: function() {
+    //
+    // }
+  });
+
+  this.route('SubproblemTree', {
+    path: 'big-idea/tree/',
+    template: 'SubproblemTree',
     subscriptions: function() {
       this.subscribe('problems');
       // this.subscribe('abstracts').wait();

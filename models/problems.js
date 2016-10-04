@@ -13,6 +13,7 @@ Problem = function(problem, solution, abstractID){
   this.solution = solution;
   this.abstractID = abstractID;
   this.time = new Date().getTime();
+  this.parent = ""; // the subproblem that spawned this subproblem
 }
 
 ProblemFactory = (function() {
