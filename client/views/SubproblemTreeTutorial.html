@@ -1,0 +1,48 @@
+<template name="SubproblemTreeTutorial">
+    <div class="row identify-subproblems-container">
+        <div class="col-md-12 col-xs-12 ideate">
+            {{> STTAbstract}}
+            {{> STTProblemTree}}
+        </div>
+    </div>
+</template>
+
+<template name="STTAbstract">
+    <div class="row abstract" id="abstract">
+        <div class="col-md-8 col-xs-8">
+            <div class="abstract-text">
+                <p>Speech disfluencies are one of the main challenges of spoken language processing. Conventional disfluency detection systems deploy a hard decision, which can have a negative influence on subsequent applications such as machine translation. In this paper we suggest a novel approach in which disfluency detection is integrated into the translation process. We train a CRF model to obtain a disfluency probability for each word. The SMT decoder will then skip the potentially disfluent word based on its disfluency probability. Using the suggested scheme, the translation score of both the manual transcript and ASR output is improved by around 0.35 BLEU points compared to the CRF hard decision system.</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="STTProblemTree">
+    <div class="problem-list-header ideagens-section-header">
+        {{numProblems}} problems
+    </div>
+    <div class="problem-list">
+        {{#each problems}}
+            {{> Problem}}
+        {{/each}}
+    </div>
+    <div class="problem-entry-controls">
+        <button class="btn btn-success ideagens-button submit-problem">Submit</button>
+    </div>
+</template>
+
+<template name="Problem">
+    <div class="problem-entry" id="problem-{{_id}}">
+        <p class="ideagens-label">Which of the following problems does the item below directly address?</p>
+        <p>{{problem}}</p>
+        <p class="ideagens-label">Problems:</p>
+        <ul>
+        {{#each possibleSubproblems}}
+            <li>
+              <input type="radio" id="choose-problem-{{_id}}" />
+              <label for="choose-problem-{{_id}}">{{problem}}</label>
+            </li>
+        {{/each}}
+        </ul>
+    </div>
+</template>
