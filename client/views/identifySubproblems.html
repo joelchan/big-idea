@@ -16,9 +16,9 @@
   <div class="row instructions" id="instructions">
     <div class="col-md-12 col-xs-12">
       <div class="ideagens-section-header">
-        Part 1: Identify Problems and Solutions <span class="toggle"><a id="instructions-toggler" href="#instructions-content" data-toggle="collapse">(Show/Hide Instructions)</a></span>
+        Part 1: Identify Problems and Solutions: {{#if isTutorial}} Instructions {{else}} Main Task {{/if}} <span class="toggle"><a id="instructions-toggler" href="#instructions-content" data-toggle="collapse">(Show/Hide Instructions)</a></span>
         {{#if isTutorial}}
-          <button class="btn btn-primary ideagens-button finish-task">Take Me to the Task</button>
+          <button class="btn btn-primary ideagens-button finish-task" style="display:none;">Take Me to the Task</button>
         {{else}}
           <button class="btn btn-primary ideagens-button finish-task">I'm Finished!</button>
         {{/if}}

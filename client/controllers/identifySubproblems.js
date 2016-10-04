@@ -80,6 +80,7 @@ Template.IdentifySubproblems.events({
     $('#problem-entry').show();
     $('#problem-list').show();
     $('#instructions-toggler').click();
+    $('.finish-task').show();
   },
 });
 
@@ -94,6 +95,17 @@ Template.Instructions.helpers({
 
 Template.Instructions.events({
   'click .finish-task': function() {
+    var userProblems;
+    if (Session.get("isTutorial")) {
+      userProblems = Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}}).fetch();
+    } else {
+      userProblems = Problems.find({abstractID: abstractID}, {sort: {time: -1}}).fetch();
+    }
+    if (userProblems.length < 1) {
+      alert("Please enter at least one problem!");
+    } else {
+      Router.go("IdentifySubproblems");
+    }
     // check if we have a minimal number of problems
     // Router.go('')
   },
