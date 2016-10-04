@@ -1,6 +1,6 @@
 <template name="IdentifySubproblems">
-    <div class="row identify-subproblems-container">
-        <div class="col-md-12 col-xs-12 ideate">
+    <div class="identify-subproblems-container">
+        <div class="col-md-8 col-xs-8 ideate">
             {{> Abstract}}
             {{> ProblemEntry}}
             {{> ProblemList}}
@@ -10,7 +10,7 @@
 
 <template name="Abstract">
     <div class="row abstract" id="abstract">
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-12 col-xs-12">
             <div class="abstract-text">
                 <p>Speech disfluencies are one of the main challenges of spoken language processing. Conventional disfluency detection systems deploy a hard decision, which can have a negative influence on subsequent applications such as machine translation. In this paper we suggest a novel approach in which disfluency detection is integrated into the translation process. We train a CRF model to obtain a disfluency probability for each word. The SMT decoder will then skip the potentially disfluent word based on its disfluency probability. Using the suggested scheme, the translation score of both the manual transcript and ASR output is improved by around 0.35 BLEU points compared to the CRF hard decision system.</p>
             </div>
@@ -20,15 +20,15 @@
 
 <template name="ProblemEntry">
     <div class="row problem-entry" id="problem-entry">
-        <div class="col-md-8 col-xs-8 problem-entry-container">
+        <div class="col-md-12 col-xs-12 problem-entry-container">
             <form class="form-inline">
-                <div class="form-group">
+                <div class="form-group" style="width:49%;">
                     <label for="problem-problem">Problem</label>
-                    <textArea rows="2" cols="50" type="text" class="form-control" id="problem-problem" placeholder="Problem..."></textarea>
+                    <textArea rows="2" style="width:100%;" type="text" class="form-control" id="problem-problem" placeholder="Problem..."></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="problem-solution">Prop</label>
-                    <textarea rows="2" cols="50" type="text" class="form-control" id="problem-solution" placeholder="Solution..."></textarea>
+                <div class="form-group" style="width:49%;">
+                    <label for="problem-solution">Solution</label>
+                    <textarea rows="2" style="width:100%;" type="text" class="form-control" id="problem-solution" placeholder="Solution..."></textarea>
                 </div>
             </form>
             <div class="problem-entry-controls">
@@ -50,7 +50,53 @@
 </template>
 
 <template name="Problem">
-    <div class="problem-entry" id="problem-{{_id}}">
-        <p><span class="ideagens-label">Problem: </span>{{problem}} &nbsp;&nbsp;&nbsp;<span class="ideagens-label">Solution: </span>{{solution}}</p>
-    </div>
+    {{#if isEdit}}
+      <div class="row problem" id="problem-{{_id}}">
+          <div class="problem-info col-md-11 col-xs-11">
+            <div class="row problem-descr-container">
+              <div class="col-md-1 col-xs-1 problem-descr-label">
+                <span class="ideagens-label">Problem: </span>
+              </div>
+              <div class="col-md-11 col-xs-11 problem-descr-content">
+                <textarea type="text" id="problem-descr-{{_id}}" style="width:100%;">{{problem}}</textarea>
+              </div>
+            </div>
+            <div class="row solution-descr-container">
+              <div class="col-md-1 col-xs-1 solution-descr-label">
+                <span class="ideagens-label">Solution: </span>
+              </div>
+              <div class="col-md-11 col-xs-11 solution-descr-content">
+                <textarea type="text" id="solution-descr-{{_id}}" style="width:100%;">{{solution}}</textarea>
+              </div>
+            </div>
+          </div>
+          <div class="edit-problem col-md-1 col-xs-1">
+            <span title="Save" class="glyphicon glyphicon-ok card-save" id="card-save-{{_id}}"> </span>
+          </div>
+      </div>
+    {{else}}
+      <div class="row problem" id="problem-{{_id}}">
+          <div class="problem-info col-md-11 col-xs-11">
+            <div class="row problem-descr-container">
+              <div class="col-md-1 col-xs-1 problem-descr-label">
+                <span class="ideagens-label">Problem: </span>
+              </div>
+              <div class="col-md-11 col-xs-11 problem-descr-content">
+                {{problem}}
+              </div>
+            </div>
+            <div class="row solution-descr-container">
+              <div class="col-md-1 col-xs-1 solution-descr-label">
+                <span class="ideagens-label">Solution: </span>
+              </div>
+              <div class="col-md-11 col-xs-11 solution-descr-content">
+                {{solution}}
+              </div>
+            </div>
+          </div>
+          <div class="edit-problem col-md-1 col-xs-1">
+            <span title="Edit" class="glyphicon glyphicon-edit card-edit" id="card-edit-{{_id}}"> </span>
+          </div>
+      </div>
+    {{/if}}
 </template>

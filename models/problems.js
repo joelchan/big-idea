@@ -14,6 +14,7 @@ Problem = function(problem, solution, abstractID){
   this.abstractID = abstractID;
   this.time = new Date().getTime();
   this.parent = ""; // the subproblem that spawned this subproblem
+  this.isEdit = false;
 }
 
 ProblemFactory = (function() {
@@ -31,9 +32,11 @@ ProblemFactory = (function() {
       }
     },
     // update a problem
-    update: function(problemID) {
-
-
+    update: function(problemID, problemDescr, solutionDescr) {
+      logger.debug("Updating problem " + problemID);
+      var problemTrimmed = removeCR(problemDescr);
+      var solutionTrimmed = removeCR(solutionDescr);
+      Problems.update({_id: problemID}, {$set: {isEdit: false, problem: problemTrimmed, solution: solutionTrimmed}});
     },
     // add a parent of the problem
     addParent: function(problemID, parentID) {

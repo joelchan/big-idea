@@ -1,11 +1,13 @@
 .identify-subproblems-container {
-    margin:auto;
+    /*margin:auto;*/
 }
 
 .identify-subproblems-container .ideate {
     /*border: 1px solid gray;*/
     /*border-radius: 5px;*/
     padding: 10px;
+    margin: 0 auto;
+    /*margin:auto;*/
 }
 
 .identify-subproblems-container .abstract-text {
@@ -15,7 +17,7 @@
     margin-bottom: 10px;
 }
 
-.identify-subproblems-container .problem-entry {
+.identify-subproblems-container .problem {
     background-color: white;
     padding: 15px 15px 5px 15px;
     margin-top: 5px;
@@ -23,6 +25,16 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 4px 4px 2px #F8F8F8;
+}
+
+.identify-subproblems-container .solution-descr-content, .problem-descr-content {
+  padding-left: 20px;
+}
+
+
+.identify-subproblems-container .edit-problem {
+  text-align: right;
+  cursor: pointer;
 }
 
 .identify-subproblems-container .problem-entry-container {
@@ -39,10 +51,11 @@
     /*padding-bottom: 5px;*/
 }
 
-.identify-subproblems--container .submit-problem {
+.identify-subproblems-container .submit-problem {
     /*font-size: 16px;*/
     /*font-family: sans-serif;*/
     float:right;
+    margin-right:15px;
     /*border-radius: 5px;*/
 }
 

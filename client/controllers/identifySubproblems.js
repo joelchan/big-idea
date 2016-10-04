@@ -55,7 +55,7 @@ Template.IdentifySubproblems.onRendered(function(){
   identifyProblemsTour.start();
 
   if(identifyProblemsTour.ended()) {
-    identifyProblemsTour.restart();
+    // identifyProblemsTour.restart();
   }
 
 });
@@ -83,6 +83,7 @@ Template.ProblemEntry.events({
       alert("Make sure all fields are filled out before submitting!");
     }
   },
+
 });
 
 Template.ProblemList.helpers({
@@ -92,4 +93,20 @@ Template.ProblemList.helpers({
   numProblems: function() {
     return Problems.find({abstractID: abstractID}).count();
   }
+});
+
+Template.Problem.events({
+  'click .card-edit': function(event, target) {
+    var problemID = event.currentTarget.id.split("-")[2];
+    Problems.update({_id: problemID},{$set: {isEdit: true}});
+  },
+  'click .card-save': function(event, target) {
+    logger.debug("Clicked on card-save");
+    var problemID = event.currentTarget.id.split("-")[2];
+    var problemSelector = "#problem-descr-" + this._id;
+    var solutionSelector = "#solution-descr-" + this._id;
+    var problemDescr = $(problemSelector).val();
+    var solutionDescr = $(solutionSelector).val();
+    ProblemFactory.update(problemID, problemDescr, solutionDescr);
+  },
 });

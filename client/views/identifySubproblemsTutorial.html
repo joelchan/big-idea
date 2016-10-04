@@ -1,56 +1,9 @@
-<template name="IdentifySubproblems">
+<template name="IdentifySubproblemsTutorial">
     <div class="row identify-subproblems-container">
         <div class="col-md-12 col-xs-12 ideate">
             {{> Abstract}}
             {{> ProblemEntry}}
             {{> ProblemList}}
         </div>
-    </div>
-</template>
-
-<template name="Abstract">
-    <div class="row abstract" id="abstract">
-        <div class="col-md-8 col-xs-8">
-            <div class="abstract-text">
-                <p>Speech disfluencies are one of the main challenges of spoken language processing. Conventional disfluency detection systems deploy a hard decision, which can have a negative influence on subsequent applications such as machine translation. In this paper we suggest a novel approach in which disfluency detection is integrated into the translation process. We train a CRF model to obtain a disfluency probability for each word. The SMT decoder will then skip the potentially disfluent word based on its disfluency probability. Using the suggested scheme, the translation score of both the manual transcript and ASR output is improved by around 0.35 BLEU points compared to the CRF hard decision system.</p>
-            </div>
-        </div>
-    </div>
-</template>
-
-<template name="ProblemEntry">
-    <div class="row problem-entry" id="problem-entry">
-        <div class="col-md-8 col-xs-8 problem-entry-container">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="problem-problem">Problem</label>
-                    <textArea rows="2" cols="50" type="text" class="form-control" id="problem-problem" placeholder="Problem..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="problem-solution">Prop</label>
-                    <textarea rows="2" cols="50" type="text" class="form-control" id="problem-solution" placeholder="Solution..."></textarea>
-                </div>
-            </form>
-            <div class="problem-entry-controls">
-                <button class="btn btn-success ideagens-button submit-problem">Submit new problem</button>
-            </div>
-        </div>
-    </div>
-</template>
-
-<template name="ProblemList">
-    <div class="problem-list-header ideagens-section-header">
-        {{numProblems}} problems
-    </div>
-    <div class="problem-list">
-        {{#each problems}}
-            {{> Problem}}
-        {{/each}}
-    </div>
-</template>
-
-<template name="Problem">
-    <div class="problem-entry" id="problem-{{_id}}">
-        <p><span class="ideagens-label">Problem: </span>{{problem}} &nbsp;&nbsp;&nbsp;<span class="ideagens-label">Solution: </span>{{solution}}</p>
     </div>
 </template>
