@@ -71,7 +71,7 @@
             </div>
           </div>
           <div class="edit-problem col-md-1 col-xs-1">
-            <span title="Save" class="glyphicon glyphicon-ok card-save" id="card-save-{{_id}}"> </span>
+            <span title="Save changes" class="glyphicon glyphicon-ok card-save" id="card-save-{{_id}}"> </span>
           </div>
       </div>
     {{else}}
@@ -95,7 +95,8 @@
             </div>
           </div>
           <div class="edit-problem col-md-1 col-xs-1">
-            <span title="Edit" class="glyphicon glyphicon-edit card-edit" id="card-edit-{{_id}}"> </span>
+            <p><span title="Edit this problem" class="glyphicon glyphicon-edit card-edit" id="card-edit-{{_id}}"> </span></p>
+            <p><span title="Delete this problem" class="glyphicon glyphicon-remove card-delete" id="card-delete-{{_id}}"> </span></p>
           </div>
       </div>
     {{/if}}

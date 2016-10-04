@@ -15,6 +15,7 @@ Problem = function(problem, solution, abstractID){
   this.time = new Date().getTime();
   this.parent = ""; // the subproblem that spawned this subproblem
   this.isEdit = false;
+  this.isTrash = false; // when user deletes a subproblem, we want to archive, not remove it completely
 }
 
 ProblemFactory = (function() {
@@ -41,6 +42,9 @@ ProblemFactory = (function() {
     // add a parent of the problem
     addParent: function(problemID, parentID) {
 
+    },
+    archive: function(problemID) {
+      Problems.update({_id: problemID}, {$set: {isTrash: true}});
     },
     // remove a problem or set of problems
     remove: function(problems) {

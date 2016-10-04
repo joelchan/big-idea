@@ -21,6 +21,7 @@ Router.map(function () {
      onBeforeAction: function() {
        if (this.ready()) {
          logger.debug("Data ready");
+         Session.set("isTutorial", true);
          this.next();
        }
      },
@@ -46,6 +47,7 @@ Router.map(function () {
     onBeforeAction: function() {
       if (this.ready()) {
         logger.debug("Data ready");
+        Session.set("isTutorial", false);
         this.next();
       }
     },

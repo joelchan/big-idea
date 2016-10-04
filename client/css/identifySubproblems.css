@@ -31,6 +31,9 @@
   padding-left: 20px;
 }
 
+.identify-subproblems-container .card-delete {
+  color: red;
+}
 
 .identify-subproblems-container .edit-problem {
   text-align: right;

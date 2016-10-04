@@ -109,4 +109,12 @@ Template.Problem.events({
     var solutionDescr = $(solutionSelector).val();
     ProblemFactory.update(problemID, problemDescr, solutionDescr);
   },
+  'click .card-delete': function(event, target) {
+    logger.debug("Clicked to delete card");
+    var confirmDelete = confirm("Are you sure? This action cannot be undone.");
+    if (confirmDelete) {
+      ProblemFactory.archive(event.currentTarget.id.split("-")[2]);
+    }
+
+  }
 });
