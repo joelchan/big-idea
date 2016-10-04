@@ -1,5 +1,23 @@
-ul.problem_choices li {
+ul.problem-choices li {
     /*border: 1px solid gray;*/
     /*border-radius: 5px;*/
     list-style-type: none;
+}
+
+ul.problem-choices li label {
+    display: inline;
+    font-weight: normal;
+}
+
+.problem-pivot {
+    font-style: italic;
+    color: maroon;
+}
+
+.problem-tree-header {
+    border-top: 1px solid #E2E2E2;
+    border-bottom: 1px solid #E2E2E2;
+    margin: 1em 0;
+    padding: 1em 0;
+    text-align: center;
 }

@@ -71,6 +71,10 @@ Template.ProblemTree.helpers({
 
 Template.STProblem.helpers({
   possibleSubproblems: function() {
-    return Problems.find({abstractID: abstractID, _id: {$not: this._id}}, {sort: {time: 1}});
+    problemSet = Problems.find({abstractID: abstractID, _id: {$not: this._id}}, {sort: {time: 1}});
+    for (var i = 0; i < problemSet.length; i++) {
+        problemSet[i].pivotID = this._id;
+    }
+    return problemSet;
   }
 });

@@ -18,9 +18,10 @@
 </template>
 
 <template name="ProblemTree">
-    <div class="problem-list-header ideagens-section-header">
-        {{numProblems}} problems
+    <div class="problem-tree-header ideagens-section-header">
+        For each of the statements in <span class="problem-pivot">dark red</span>, select <em>a single problem</em> that it solves directly.
     </div>
+    
     <div class="problem-list">
         {{#each problems}}
             {{> STProblem}}
@@ -32,19 +33,27 @@
 </template>
 
 <template name="STProblem">
-    <div class="problem-entry" id="problem-{{_id}}">
-        <p class="ideagens-label">"{{problem}}" directly accomplishes...</p>
-        <ul class="problem_choices">
-        {{#each possibleSubproblems}}
-            {{> STProblemChoices}}
-        {{/each}}
-        </ul>
+    <div class="row ideagens-label">
+        <div class="col-md-4 col-xs-4">
+            <div id="problem-{{_id}}">
+                <p>"<span class="problem-pivot">{{problem}}</span>" directly accomplishes...</p>
+            </div>
+        </div>
+        <div class="col-md-8 col-xs-8">
+            <form>
+                <ul class="problem-choices">
+                {{#each possibleSubproblems}}
+                    {{> STProblemChoices}}
+                {{/each}}
+                </ul>
+            </form>
+        </div>
     </div>
 </template>
 
 <template name="STProblemChoices">
           <li>
-            <input type="radio" id="choose-problem-{{_id}}" />
-            <label for="choose-problem-{{_id}}">{{problem}}</label>
+            <input type="radio" name="pivot-{{pivotID}}" id="pivot-{{pivotID}}-problem-{{_id}}" />
+            <label for="pivot-{{pivotID}}-problem-{{_id}}">{{problem}}</label>
           </li>
 </template>
