@@ -69,12 +69,27 @@ Template.ProblemTree.helpers({
   }
 });
 
+Template.ProblemTree.events({
+  'click .submit-problem': function(event, target) {
+    //var problemID = event.currentTarget.id.split("-")[2];
+    Problems.update({_id: problemID},{$set: {isEdit: true}});
+  },
+});
+
 Template.STProblem.helpers({
   possibleSubproblems: function() {
-    problemSet = Problems.find({abstractID: abstractID, _id: {$not: this._id}}, {sort: {time: 1}});
-    for (var i = 0; i < problemSet.length; i++) {
-        problemSet[i].pivotID = this._id;
-    }
-    return problemSet;
+    logger.debug("Calling possibleSubproblems()");
+    var problemCursor = Problems.find({
+        abstractID: abstractID, _id: {$not: this._id}}, {sort: {time: 1}}
+      );
+    logger.debug("Finishing possibleSubproblems() call");
+    return problemCursor;
+  }
+});
+
+Template.STProblemChoices.helpers({
+  getPivotId: function() {
+    logger.debug("Call getPivotId()");
+    return Template.parentData(1)._id;
   }
 });

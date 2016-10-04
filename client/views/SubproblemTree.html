@@ -21,7 +21,7 @@
     <div class="problem-tree-header ideagens-section-header">
         For each of the statements in <span class="problem-pivot">dark red</span>, select <em>a single problem</em> that it solves directly.
     </div>
-    
+
     <div class="problem-list">
         {{#each problems}}
             {{> STProblem}}
@@ -53,7 +53,7 @@
 
 <template name="STProblemChoices">
           <li>
-            <input type="radio" name="pivot-{{pivotID}}" id="pivot-{{pivotID}}-problem-{{_id}}" />
-            <label for="pivot-{{pivotID}}-problem-{{_id}}">{{problem}}</label>
+            <input type="radio" name="pivot-{{getPivotId}}" id="pivot-{{getPivotId}}-problem-{{_id}}" data-child="{{getPivotId}}" data-id="{{_id}}"/>
+            <label for="pivot-{{getPivotId}}-problem-{{_id}}">{{problem}}</label>
           </li>
 </template>
