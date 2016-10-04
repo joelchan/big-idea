@@ -35,7 +35,7 @@
     margin: auto;
 }
 
-.identify-subproblems-container .problem {
+.problem {
     background-color: white;
     padding: 15px 15px 5px 15px;
     margin-top: 5px;
@@ -80,14 +80,33 @@
     /*border-radius: 5px;*/
 }
 
+.example-problem {
+    background-color: #dff7c3;
+    padding: 15px 15px 5px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 4px 4px 2px #F8F8F8;
+}
+
 .finish-task {
   float:right;
   margin-right: 15px;
   margin-bottom: 15px;
 }
 
-.identify-subproblems--container .problem-list {
-    max-height: 385px;
+.identify-subproblems-container .problem-list {
+    max-height: 200px;
+    overflow: scroll;
+    overflow-x: hidden;
+    /*background-color: #E2E2E2;*/
+    /*margin-top: 10px;*/
+}
+
+.identify-subproblems-container .example-problem-list {
+    max-height: 200px;
+    overflow-x: hidden;
     overflow: scroll;
     /*background-color: #E2E2E2;*/
     /*margin-top: 10px;*/

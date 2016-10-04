@@ -9,6 +9,9 @@ Meteor.startup(function(){
   * Publish Task related collections
   ******************************************************************/
   Meteor.publish("problems", function(){
-	  return Problems.find({isTrash: {$ne: true}});
+	  return Problems.find({isTrash: false});
+  });
+  Meteor.publish("problemsNoDummy", function(){
+	  return Problems.find({isTrash: false, isDummy: false});
   });
 });

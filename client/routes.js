@@ -15,7 +15,7 @@ Router.map(function () {
      path: 'big-idea/identify-t/',
      template: 'IdentifySubproblems',
      subscriptions: function() {
-      //  this.subscribe('problems');
+       this.subscribe('problems');
        // this.subscribe('abstracts').wait();
      },
      onBeforeAction: function() {
@@ -41,7 +41,7 @@ Router.map(function () {
     path: 'big-idea/identify/',
     template: 'IdentifySubproblems',
     subscriptions: function() {
-      this.subscribe('problems');
+      this.subscribe('problemsNoDummy');
       // this.subscribe('abstracts').wait();
     },
     onBeforeAction: function() {
