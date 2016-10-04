@@ -1,0 +1,62 @@
+.identify-subproblems-container {
+    margin:auto;
+}
+
+.identify-subproblems-container .ideate {
+    /*border: 1px solid gray;*/
+    /*border-radius: 5px;*/
+    padding: 10px;
+}
+
+.identify-subproblems-container .abstract-text {
+    /*border: 1px solid black;*/
+    background-color: white;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.identify-subproblems-container .problem-entry {
+    background-color: white;
+    padding: 15px 15px 5px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 4px 4px 2px #F8F8F8;
+}
+
+.identify-subproblems-container .problem-entry-container {
+    /*margin-top: 5px;*/
+    /*margin-bottom: 5px;*/
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.identify-subproblems-container .problem-entry-controls {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /*padding-top: 5px;*/
+    /*padding-bottom: 5px;*/
+}
+
+.identify-subproblems--container .submit-problem {
+    /*font-size: 16px;*/
+    /*font-family: sans-serif;*/
+    float:right;
+    /*border-radius: 5px;*/
+}
+
+.identify-subproblems--container .problem-list {
+    max-height: 385px;
+    overflow: scroll;
+    /*background-color: #E2E2E2;*/
+    /*margin-top: 10px;*/
+}
+
+.identify-subproblems-container .problem-list-header {
+    border-top: 1px solid #E2E2E2;
+    border-bottom: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    text-align: center;
+}
