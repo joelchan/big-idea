@@ -13,7 +13,7 @@ Router.map(function () {
    * *************************************************************/
    this.route('IdentifySubproblemsTutorial', {
      path: 'big-idea/identify-t/',
-     template: 'IdentifySubproblemsTutorial',
+     template: 'IdentifySubproblems',
      subscriptions: function() {
       //  this.subscribe('problems');
        // this.subscribe('abstracts').wait();

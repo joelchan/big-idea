@@ -1,6 +1,7 @@
 <template name="IdentifySubproblems">
     <div class="identify-subproblems-container">
         <div class="col-md-8 col-xs-8 ideate">
+            {{> Instructions}}
             {{> Abstract}}
             {{> ProblemEntry}}
             {{> ProblemList}}
@@ -8,9 +9,130 @@
     </div>
 </template>
 
+<template name="Instructions">
+  <div class="row instructions" id="instructions">
+    <div class="col-md-12 col-xs-12">
+      <div class="ideagens-section-header">
+        Part 1: Identify Problems and Solutions <span class="toggle"><a id="instructions-toggler" href="#instructions-content" data-toggle="collapse">(Show/Hide Instructions)</a></span>
+        {{#if isTutorial}}
+          <button class="btn btn-primary ideagens-button finish-task">Take Me to the Task</button>
+        {{else}}
+          <button class="btn btn-primary ideagens-button finish-task">I'm Finished!</button>
+        {{/if}}
+      </div>
+      <div class="instructions-content collapse in" id="instructions-content">
+        <p>Welcome! In this part of the HIT, your job is to read an abstract for a research paper, and <b><u>find all the phrases that describe the <em>PROBLEMS</em> that the researcher is addressing in the research</u></b>, as expressed in the abstract. We also need you to <b><u>find all the terms/phrases that describe the <em>SOLUTIONS</em> that the researcher proposes for each of the PROBLEMs.</u></b> Sometimes a problem will not have a corresponding proposed solution; in those cases, it is ok to leave the "solution" field blank.</p>
+        <p>Let's look at an example to make this more concrete. In the following abstract:</p>
+        <div class="abstract-text">
+            <p>Sketching is a way for artists to generate ideas quickly, explore alternatives with less risk, and encourage discussions. How might computational tools amplify the abilities of artists? This paper introduces Smart Sketchpad, a digital sketchpad that uses machine learning to identify what is being sketched. The sketchpad then shows example images, color pallets, and subject information. The goal of Smart Sketchpad is to increase an artists ability to get ideas down with higher fidelity by making it easier to reference and include existing example works. Our study compares traditional sketching on a phone to Smart Sketchpad. We found that introducing examples during the sketching process leads to higher satisfaction of the sketch by the artist and an external expert.</p>
+        </div>
+        <br/>
+        <p>The problem-solution pairs are:</p>
+        <div class="row problem">
+            <div class="problem-info col-md-11 col-xs-11">
+              <div class="row problem-descr-container">
+                <div class="col-md-1 col-xs-1 problem-descr-label">
+                  <span class="ideagens-label">Problem: </span>
+                </div>
+                <div class="col-md-11 col-xs-11 problem-descr-content">
+                  Identify sketches
+                </div>
+              </div>
+              <div class="row solution-descr-container">
+                <div class="col-md-1 col-xs-1 solution-descr-label">
+                  <span class="ideagens-label">Solution: </span>
+                </div>
+                <div class="col-md-11 col-xs-11 solution-descr-content">
+                  Machine learning
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row problem">
+            <div class="problem-info col-md-11 col-xs-11">
+              <div class="row problem-descr-container">
+                <div class="col-md-1 col-xs-1 problem-descr-label">
+                  <span class="ideagens-label">Problem: </span>
+                </div>
+                <div class="col-md-11 col-xs-11 problem-descr-content">
+                  Show example images, color pallets, and subject information
+                </div>
+              </div>
+              <div class="row solution-descr-container">
+                <div class="col-md-1 col-xs-1 solution-descr-label">
+                  <span class="ideagens-label">Solution: </span>
+                </div>
+                <div class="col-md-11 col-xs-11 solution-descr-content">
+
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row problem">
+            <div class="problem-info col-md-11 col-xs-11">
+              <div class="row problem-descr-container">
+                <div class="col-md-1 col-xs-1 problem-descr-label">
+                  <span class="ideagens-label">Problem: </span>
+                </div>
+                <div class="col-md-11 col-xs-11 problem-descr-content">
+                  Increase artists ability to sketch ideas with higher fidelity
+                </div>
+              </div>
+              <div class="row solution-descr-container">
+                <div class="col-md-1 col-xs-1 solution-descr-label">
+                  <span class="ideagens-label">Solution: </span>
+                </div>
+                <div class="col-md-11 col-xs-11 solution-descr-content">
+                  Smart SketchPad
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row problem">
+            <div class="problem-info col-md-11 col-xs-11">
+              <div class="row problem-descr-container">
+                <div class="col-md-1 col-xs-1 problem-descr-label">
+                  <span class="ideagens-label">Problem: </span>
+                </div>
+                <div class="col-md-11 col-xs-11 problem-descr-content">
+                  Make it easier to reference and include existing examples
+                </div>
+              </div>
+              <div class="row solution-descr-container">
+                <div class="col-md-1 col-xs-1 solution-descr-label">
+                  <span class="ideagens-label">Solution: </span>
+                </div>
+                <div class="col-md-11 col-xs-11 solution-descr-content">
+                  Show example images, color pallets, and subject information
+                </div>
+              </div>
+            </div>
+        </div>
+        <br/>
+        <div class="ideagens-section-header">How do I find these problems?</div>
+        <p>Here are some strategies that others have found helpful for finding the problems in an abstract:</p>
+        <ul>
+          <li>Find the sentence that begins with some variant of "We introduce X". Be sure to also capture other sentences that further expand on what X does.</li>
+          <li>Find the sentence that begins with "However..." near the beginning of the abstract. A description of the problem usually follows.</li>
+          <li>Find the sentence that begins with some variant of "This paper aims to/addresses...".</li>
+          <li>Find the sentence that begins with some variant of "This paper/study examines/investigates/etc. [whether/how] X" to find the main [process/phenomenon/relationship] being studied in the paper.</li>
+        </ul>
+        <div class="finish-tutorial-container">
+          <button class="btn btn-success ideagens-button finish-tutorial">Got It!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <template name="Abstract">
     <div class="row abstract" id="abstract">
         <div class="col-md-12 col-xs-12">
+            {{#if isTutorial}}
+              <p>Let's practice! Try to identify as many problem-solution pairs as you can in the following abstract. After you have entered at least one, you may click on the "See Answers" button to see good examples of problem-solution pairs for this abstract.</p>
+            {{else}}
+              <p>Please <b><u>find all the phrases that describe the <em>PROBLEMS</em> that the researcher is addressing in the research</u></b>, as expressed in the following abstract. We also need you to <b><u>find all the terms/phrases that describe the <em>SOLUTIONS</em> that the researcher proposes for each of the PROBLEMs.</u></b> Sometimes a problem will not have a corresponding proposed solution; in those cases, it is ok to leave the "solution" field blank. When you are finished, click on the "I'm Finished" button in the top right hand corner. Good luck!</p>
+            {{/if}}
             <div class="abstract-text">
                 <p>Speech disfluencies are one of the main challenges of spoken language processing. Conventional disfluency detection systems deploy a hard decision, which can have a negative influence on subsequent applications such as machine translation. In this paper we suggest a novel approach in which disfluency detection is integrated into the translation process. We train a CRF model to obtain a disfluency probability for each word. The SMT decoder will then skip the potentially disfluent word based on its disfluency probability. Using the suggested scheme, the translation score of both the manual transcript and ASR output is improved by around 0.35 BLEU points compared to the CRF hard decision system.</p>
             </div>
@@ -33,12 +155,16 @@
             </form>
             <div class="problem-entry-controls">
                 <button class="btn btn-success ideagens-button submit-problem">Submit new problem</button>
+                {{#if isTutorial}}
+                  <button class="btn btn-default ideagens-button show-answers">See Answers</button>
+                {{/if}}
             </div>
         </div>
     </div>
 </template>
 
 <template name="ProblemList">
+  <div class="row" id="problem-list">
     <div class="problem-list-header ideagens-section-header">
         {{numProblems}} problems
     </div>
@@ -47,6 +173,7 @@
             {{> Problem}}
         {{/each}}
     </div>
+  </div>
 </template>
 
 <template name="Problem">

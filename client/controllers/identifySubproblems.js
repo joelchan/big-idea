@@ -11,6 +11,12 @@ var abstractID = "dummy";
 Template.IdentifySubproblems.onRendered(function(){
 
   // disable idea submission during tutorial
+  if (Session.equals("isTutorial", true)) {
+    $('#abstract').hide();
+    $('#problem-entry').hide();
+    $('#problem-list').hide();
+  }
+
   $(".idea-entry input").prop("disabled", true);
   $(".idea-entry textArea").prop("disabled", true);
   $(".submit-idea").prop("disabled", true);
@@ -60,8 +66,38 @@ Template.IdentifySubproblems.onRendered(function(){
 
 });
 
-Template.ProblemEntry.helpers({
+Template.IdentifySubproblems.events({
+  'click .finish-tutorial': function(event, target) {
+    $('#abstract').show();
+    $('#problem-entry').show();
+    $('#problem-list').show();
+    $('#instructions-toggler').click();
+  },
+});
 
+Template.Instructions.helpers({
+  isTutorial: function() {
+    return Session.get("isTutorial");
+  },
+});
+
+Template.Instructions.events({
+  'click .finish-task': function() {
+    // check if we have a minimal number of problems
+    // Router.go('')
+  },
+})
+
+Template.Abstract.helpers({
+  isTutorial: function() {
+    return Session.get("isTutorial");
+  },
+})
+
+Template.ProblemEntry.helpers({
+  isTutorial: function() {
+    return Session.get("isTutorial");
+  },
 });
 
 Template.ProblemEntry.events({
@@ -72,7 +108,12 @@ Template.ProblemEntry.events({
     var problemDescr = $("#problem-problem").val();
     var solutionDescr = $("#problem-solution").val();
     //Add idea to database
-    var problem = ProblemFactory.create(problemDescr, solutionDescr, abstractID);
+    if (Session.get("isTutorial")) {
+      var problem = ProblemFactory.create(problemDescr, solutionDescr, abstractID, true);
+    } else {
+      var problem = ProblemFactory.create(problemDescr, solutionDescr, abstractID, false);
+    }
+
     if (problem) {
 
       // Clear the text field
@@ -89,6 +130,12 @@ Template.ProblemEntry.events({
 Template.ProblemList.helpers({
   problems: function() {
     return Problems.find({abstractID: abstractID}, {sort: {time: -1}})
+  },
+  tutorialAnswers: function() {
+    return Problems.find({abstractID: "tutorial"}, {sort: {time: -1}});
+  },
+  dummyProblems: function() {
+    return Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}})
   },
   numProblems: function() {
     return Problems.find({abstractID: abstractID}).count();
