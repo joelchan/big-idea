@@ -24,6 +24,7 @@ Template.land.events({
             logger.trace("User " + userName + " clicked continue");
             userID = UserManager.loginUser(userName);
             Router.go(Session.get("nextRoute"), {userID: userID, abstractID: abstractID});
+            EventLogger.logBeginIdentifyTutorial();
         }
     },
     'keyup input#userName': function (evt) {

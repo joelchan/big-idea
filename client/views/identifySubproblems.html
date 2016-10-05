@@ -62,7 +62,8 @@
             {{else}}
               <p>Please <b><u>find all the phrases that describe the <em>PROBLEMS</em> that the researcher is addressing in the research</u></b>, as expressed in the following abstract. We also need you to <b><u>find all the terms/phrases that describe the <em>SOLUTIONS</em> that the researcher proposes for each of the PROBLEMs.</u></b> Sometimes a problem will not have a corresponding proposed solution; in those cases, it is ok to leave the "solution" field blank. When you are finished, click on the "I'm Finished" button in the top right hand corner. Good luck!</p>
             <div class="abstract-text">
-                {{abstract}}
+                <label>{{title}}</label><br/>
+                <p>{{abstract}}</p>
                 <!-- <p>Speech disfluencies are one of the main challenges of spoken language processing. Conventional disfluency detection systems deploy a hard decision, which can have a negative influence on subsequent applications such as machine translation. In this paper we suggest a novel approach in which disfluency detection is integrated into the translation process. We train a CRF model to obtain a disfluency probability for each word. The SMT decoder will then skip the potentially disfluent word based on its disfluency probability. Using the suggested scheme, the translation score of both the manual transcript and ASR output is improved by around 0.35 BLEU points compared to the CRF hard decision system.</p> -->
             </div>
             {{/if}}

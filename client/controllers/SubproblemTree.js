@@ -39,6 +39,7 @@ Template.STInstructions.events({
     $('.problem-list').show();
     $('#instructions-toggler').click();
     $('.finish-task').show();
+    EventLogger.logBeginTreeTask();
   },
   'click .finish-task': function(event, target) {
     //var problemID = event.currentTarget.id.split("-")[2];
@@ -62,8 +63,9 @@ Template.STInstructions.events({
       var finished = confirm("Are you sure you are finished? Once you advance to the next screen you will not be able to edit your work.");
       logger.debug(finished);
       if (finished == true) {
-        CompletionManager.markCompletion(abstractID, Session.get("currentUser").userName);
-        Router.go(Session.get("nextRoute"), {userID: Session.get("currentUser")._id, abstractID: abstractID});
+        CompletionManager.markCompletion(Session.get("currentAbstract").abstractID, Session.get("currentUser").userName);
+        Router.go(Session.get("nextRoute"), {userID: Session.get("currentUser")._id, abstractID: Session.get("currentAbstract").abstractID});
+        EventLogger.logFinishTreeTask();
       }
     }
 
@@ -92,7 +94,7 @@ Template.STProblem.helpers({
   possibleParents: function() {
     logger.debug("Calling possibleParents()");
     var problemCursor = Problems.find({
-        abstractID: abstractID, userID: userID, _id: {$not: this._id}}, {sort: {time: 1}}
+        abstractID: Session.get("currentAbstract").abstractID, userID: Session.get("currentUser")._id, _id: {$not: this._id}}, {sort: {time: 1}}
       );
     logger.debug("Finishing possibleParents() call");
     return problemCursor;

@@ -109,6 +109,11 @@ Template.Instructions.events({
     } else {
       Router.go(Session.get("nextRoute"), {userID: Session.get("currentUser")._id,
                                           abstractID: Session.get("currentAbstract").abstractID});
+      if (Session.get("isTutorial")) {
+          EventLogger.logBeginIdentifyTask();
+      } else {
+          EventLogger.logBeginTreeTutorial();
+      }
     }
     // check if we have a minimal number of problems
     // Router.go('')
@@ -121,7 +126,10 @@ Template.Abstract.helpers({
   },
   abstract: function() {
     return Session.get("currentAbstract").content;
-  }
+  },
+  title: function() {
+    return Session.get("currentAbstract").title;
+  },
 })
 
 Template.ProblemEntry.helpers({
