@@ -4,10 +4,11 @@ Template.FinalizePage.rendered = function() {
 
 Template.FinalizePage.helpers({
     code: function() {
-        var part = Session.get("currentParticipant");
-        // var verifyCode = Random.hexString(20).toLowerCase();
+        // var part = Session.get("currentParticipant");
+        var verifyCode = Random.hexString(20).toLowerCase();
+        return verifyCode;
         // Participants.update({_id: part._id},
         //     {$set: {verifyCode: verifyCode}})
-        return part.verifyCode;    
+        // return part.verifyCode;
     }
 });

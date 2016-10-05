@@ -30,7 +30,7 @@ Router.map(function () {
           Meteor.subscribe('fluencyMeasures'),
           Meteor.subscribe('SurveyResponses'),
       ];
-    }, 
+    },
     onBeforeAction: function() {
       if (this.ready()) {
         logger.debug("Data ready");
@@ -43,8 +43,8 @@ Router.map(function () {
       }
     },
   });
-  
-  
+
+
   this.route('subroute', {
      path: 'crowd/subroute/:promptID/:userID/',
      template: 'SubrouteSandbox',
@@ -62,7 +62,7 @@ Router.map(function () {
           Meteor.subscribe('tasks'),
           Meteor.subscribe('zoomPositions'),
       ];
-    }, 
+    },
     onBeforeAction: function() {
       if (this.ready()) {
         logger.debug("Data ready");
@@ -77,9 +77,9 @@ Router.map(function () {
         this.next();
       }
     },
-  }); 
-    
-  
+  });
+
+
   this.route('ExpDashboard', {
     path: 'crowd/DashboardExp/:promptID/:userID/:expID',
     template: 'HcompDashboard',
@@ -104,7 +104,7 @@ Router.map(function () {
           Meteor.subscribe('assignments', {promptID: pID}),
           Meteor.subscribe('sorters'),
       ];
-    }, 
+    },
     onBeforeAction: function() {
       if (this.ready()) {
         logger.debug("Data ready");
@@ -115,15 +115,15 @@ Router.map(function () {
         }
         var prompt = Prompts.findOne({_id: this.params.promptID});
         if (prompt) {
-          
+
           logger.debug("setting current prompt");
           Session.set("currentPrompt", prompt);
-          
+
           // FilterManager.create("Ideas Filter", Session.get("currentUser"), "ideas", "prompt._id", Session.get("currentPrompt")._id);
           // FilterManager.create("IdeaWordCloud Filter", Session.get("currentUser"), "ideas", "prompt._id", Session.get("currentPrompt")._id);
           // FilterManager.create("Tasks Filter", Session.get("currentUser"), "tasks", "promptID", Session.get("currentPrompt")._id);
           if (prompt.length > 0) {
-            Session.set("sessionLength", prompt.length);  
+            Session.set("sessionLength", prompt.length);
           } else {
             Session.set("sessionLength", 10);
           }
@@ -157,7 +157,7 @@ Router.map(function () {
       }
     }
   });
- 
+
   this.route('CrowdLoginPage', {
     path: '/crowd/Ideation/Login/:promptID',
     template: 'MturkLoginPage',
@@ -194,7 +194,7 @@ Router.map(function () {
       Session.set("nextPage", "CrowdIdeation");
     },
   });
-  
+
 
   this.route('HcompDashboard', {
     path: 'crowd/Dashboard/:promptID/:userID',
@@ -215,7 +215,7 @@ Router.map(function () {
           Meteor.subscribe('assignments', {promptID: pID}),
           Meteor.subscribe('sorters'),
       ];
-    }, 
+    },
     onBeforeAction: function() {
       if (this.ready()) {
         logger.debug("Data ready");
@@ -234,7 +234,7 @@ Router.map(function () {
           // FilterManager.create("IdeaWordCloud Filter", Session.get("currentUser"), "ideas", "prompt._id", Session.get("currentPrompt")._id);
           // FilterManager.create("Tasks Filter", Session.get("currentUser"), "tasks", "promptID", Session.get("currentPrompt")._id);
           if (prompt.length > 0) {
-            Session.set("sessionLength", prompt.length);  
+            Session.set("sessionLength", prompt.length);
           } else {
             Session.set("sessionLength", 10);
           }
@@ -354,7 +354,7 @@ Router.map(function () {
       } else
         this.render('loading');
     },
-    onAfterAction: function() { 
+    onAfterAction: function() {
     },
   });
 
@@ -408,7 +408,7 @@ Router.map(function () {
     waitOn: function() {
       var pID = this.params.promptID;
       if (Session.get("currentUser")) {
-        return [ 
+        return [
           Meteor.subscribe('prompts'),
           Meteor.subscribe('fluencyMeasures')
           ]
@@ -474,7 +474,7 @@ Router.map(function () {
           Meteor.subscribe('experiments'),
           Meteor.subscribe('fluencyMeasures')
       ];
-      
+
     },
     onBeforeAction: function(pause) {
         logger.debug("before action");
@@ -523,7 +523,7 @@ Router.map(function () {
         }
     },
   });
-  
+
   this.route('MturkIdeationControl', {
       name: 'MturkIdeationControl',
       path: 'crowd/Ideate/:promptID/:partID',
@@ -601,12 +601,12 @@ Router.map(function () {
       }
     }
   });
-  
+
   this.route('MturkIdeationTreatment', {
       name: 'MturkIdeationTreatment',
       path: 'crowd/Ideation/:promptID/:partID',
       template: 'MturkIdeationPage',
-      
+
       subscriptions: function() {
         logger.debug("Waiting on data for ideation treatment...");
         this.subscribe('ideas', {promptID: this.params.promptID});
@@ -616,7 +616,7 @@ Router.map(function () {
         this.subscribe('assignments').wait();
         this.subscribe('tasks', {promptID: this.params.promptID});
       },
-      
+
       // waitOn: function() {
       // logger.debug("Waiting on...");
       // // var part = Participants.findOne({_id: this.params.partID});
@@ -739,7 +739,7 @@ Router.map(function () {
       }
     }
   });
-  
+
   this.route('PersonalizedInsp', {
     path: 'crowd/IdeateP/:promptID/:partID',
     template: 'MTurkIdeationPersonalized',
@@ -942,7 +942,7 @@ Router.map(function () {
     },
     onAfterAction: function() {
       if (this.ready()) {
-        setNextPage("MturkSynthesis", 
+        setNextPage("MturkSynthesis",
           {promptID: Session.get("currentPrompt")._id,
             userID: Session.get("currentUser")._id
           }
@@ -994,44 +994,6 @@ Router.map(function () {
     },
   });
 
-  this.route('MTurkFinalPage', {
-    path: 'crowd/mt/finished/:partID/',
-    template: 'FinalizePage',
-    waitOn: function() {
-      logger.debug("Waiting on...");
-      return [
-        Meteor.subscribe('prompts'),
-        Meteor.subscribe('myUsers'),
-        Meteor.subscribe('participants'),
-        Meteor.subscribe('exp-conditions'),
-      ];
-    },
-    onBeforeAction: function(pause) {
-        logger.debug("before action");
-        //if (!Session.get("currentUser")) {
-          ////if there is no user currently logged in, then render the login page
-          //this.render('MTurkLoginPage', {'promptID': this.params.promptID});
-          ////Pause rendering the given page until the user is set
-          //pause();
-        //}
-        if (this.ready()) {
-          logger.debug("Data ready");
-          var part = Participants.findOne({_id: this.params.partID});
-          Session.set("currentParticipant", part);
-          this.next();
-        } else {
-          logger.debug("Not ready");
-        }
-    },
-    action: function(){
-      if(this.ready())
-        this.render();
-      else
-        this.render('loading');
-    },
-
-  });
-
   this.route('LegionFinalPage', {
     path: 'crowd/finished/:partID/',
   	template: 'LegionFinalPage',
@@ -1069,12 +1031,12 @@ Router.map(function () {
   });
 
   this.route("HcompResultsPage", {
-    path: "/results/:promptID/:userID", 
+    path: "/results/:promptID/:userID",
     template: "HcompResultsPage",
     waitOn: function() {
       var pID = this.params.promptID;
       if (Session.get("currentUser")) {
-        return [ 
+        return [
           Meteor.subscribe('ideas', {promptID: pID}),
           Meteor.subscribe('clusters', {promptID: pID}),
           Meteor.subscribe('prompts'),
@@ -1120,11 +1082,11 @@ Router.map(function () {
   });
 
   this.route("Visualization", {
-    path: "/vizualization/:promptID/:userID", 
+    path: "/vizualization/:promptID/:userID",
     template: "Visualization",
     waitOn: function() {
       if (Session.get("currentUser")) {
-        return [ 
+        return [
           Meteor.subscribe('ideas'),
           Meteor.subscribe('clusters'),
           Meteor.subscribe('prompts'),
@@ -1161,7 +1123,7 @@ Router.map(function () {
           this.next();
         }
     },
-    
+
     action: function(){
       if(this.ready())
         this.render();
@@ -1175,7 +1137,7 @@ var insertTimer = function() {
   if ($('.timer').length == 0 && Session.get("useFluencyTimer")) {
     logger.info("using a timer");
     Session.set("hasTimer",true);
-    Blaze.render(Template.TockTimer, $('#nav-right')[0]);  
+    Blaze.render(Template.TockTimer, $('#nav-right')[0]);
   }
 };
 
@@ -1201,9 +1163,9 @@ var insertExitStudy = function() {
     } else {
       Router.go("LegionFinalPage", {
         'partID': part._id
-      });  
+      });
     }
-    
+
   });
 };
 
@@ -1228,7 +1190,7 @@ var initFluencyPage = function() {
     logger.debug("checking if setting timer decrement");
     logger.trace("Use fluency Timer: " + JSON.stringify(Session.get("useFluencyTimer")));
     logger.trace("Tutorial timer: " + JSON.stringify(Session.get("isTutorialTimer")));
-    if (!Session.get("isTutorialTimer") && 
+    if (!Session.get("isTutorialTimer") &&
         !Session.get("fluencyIsDecrementing") ){
       logger.debug("************Setting decrement for fluency timer*************");
       Session.set("fluencyIsDecrementing", true);
@@ -1263,7 +1225,7 @@ var initRolePage = function() {
       logger.debug("checking if setting timer decrement");
       logger.trace("Use Timer: " + JSON.stringify(Session.get("useTimer")));
       logger.trace("Tutorial timer: " + JSON.stringify(Session.get("isTutorialTimer")));
-      if (!Session.get("isTutorialTimer") && 
+      if (!Session.get("isTutorialTimer") &&
           !Session.get("isDecrementing") ){
         logger.debug("************Setting decrement for timer*************");
         Session.set("isDecrementing", true);
@@ -1276,4 +1238,3 @@ var initRolePage = function() {
     $('.timer').remove();
   }
 };
-

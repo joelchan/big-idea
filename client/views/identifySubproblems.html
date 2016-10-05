@@ -1,6 +1,6 @@
 <template name="IdentifySubproblems">
     <div class="identify-subproblems-container">
-        <div class="col-md-8 col-xs-8 ideate">
+        <div class="col-md-12 col-xs-12 ideate">
             {{> Instructions}}
             {{> Abstract}}
             {{> ProblemEntry}}
@@ -16,7 +16,7 @@
   <div class="row instructions" id="instructions">
     <div class="col-md-12 col-xs-12">
       <div class="ideagens-section-header">
-        Part 1: Identify Problems and Solutions: {{#if isTutorial}} Instructions {{else}} Main Task {{/if}} <span class="toggle"><a id="instructions-toggler" href="#instructions-content" data-toggle="collapse">(Show/Hide Instructions)</a></span>
+        Part 1 of 2: Identify Problems and Solutions: {{#if isTutorial}} Instructions {{else}} Main Task {{/if}} <span class="toggle"><a id="instructions-toggler" href="#instructions-content" data-toggle="collapse">(Show/Hide Instructions)</a></span>
         {{#if isTutorial}}
           <button class="btn btn-primary ideagens-button finish-task" style="display:none;">Take Me to the Task</button>
         {{else}}

@@ -9,6 +9,7 @@ Meteor.startup(function() {
                       parent: p.parent,
                       isEdit: p.isEdit,
                       isTrash: p.isTrash,
+                      isDummy: p.isDummy,
                       time: new Date().getTime()});
     })
   }

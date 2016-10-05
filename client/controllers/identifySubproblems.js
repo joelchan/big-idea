@@ -113,6 +113,17 @@ Template.Instructions.events({
   },
 })
 
+Template.STInstructionProblemPair.helpers({
+  parentDescr: function() {
+    var parent = Problems.findOne(this.parent);
+    if (parent) {
+      return parent.problem;
+    } else {
+      return this.parent;
+    }
+  }
+});
+
 Template.Abstract.helpers({
   isTutorial: function() {
     return Session.get("isTutorial");

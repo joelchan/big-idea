@@ -60,6 +60,12 @@ Template.SubproblemTree.onRendered(function(){
 
 });
 
+Template.STInstructions.helpers({
+  instructionProblems: function() {
+    return Problems.find({abstractID: "instruction-example"}).fetch();
+  }
+});
+
 Template.ProblemTree.helpers({
   problems: function() {
     return Problems.find({abstractID: abstractID}, {sort: {time: -1}});
@@ -69,8 +75,14 @@ Template.ProblemTree.helpers({
   }
 });
 
-Template.ProblemTree.events({
-  'click .submit-problem': function(event, target) {
+Template.STInstructions.events({
+  'click .finish-tutorial': function(event, target) {
+    $('#abstract').show();
+    $('.problem-list').show();
+    $('#instructions-toggler').click();
+    $('.finish-task').show();
+  },
+  'click .finish-task': function(event, target) {
     //var problemID = event.currentTarget.id.split("-")[2];
     var parents = $('input[name="problem-parent"]:checked');
     logger.trace("All selected parents: " + parents);
@@ -89,6 +101,11 @@ Template.ProblemTree.events({
         }
         ProblemFactory.addParent(child_id, parent_id);
       });
+      var finished = confirm("Are you sure you are finished? Once you advance to the next screen you will not be able to edit your work.");
+      logger.debug(finished);
+      if (finished == true) {
+        Router.go(Session.get("nextRoute"));
+      }
     }
 
     // Problems.update({_id: problemID},{$set: {isEdit: true}});

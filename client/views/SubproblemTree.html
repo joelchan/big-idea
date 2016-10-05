@@ -1,15 +1,53 @@
 <template name="SubproblemTree">
     <div class="row identify-subproblems-container">
         <div class="col-md-12 col-xs-12 ideate">
+            {{> STInstructions}}
             {{> STAbstract}}
             {{> ProblemTree}}
         </div>
     </div>
 </template>
 
+<template name="STInstructions">
+  <div class="ideagens-section-header">
+      Part 2 of 2: Link the Problems Together <span class="toggle"><a id="instructions-toggler" href="#instructions-content" data-toggle="collapse">(Show/Hide Instructions)</a></span>
+      <button class="btn btn-primary ideagens-button finish-task">I'm Finished!</button>
+  </div> <!-- End instructions header div -->
+  <div class="instructions-content collapse in" id="instructions-content">
+    <p>In this part of the HIT, we would like to you tell us how the problems you have identified relate to each other. Specifically, <b><u>for each problem, we want you to identify the "parent" problem it directly accomplishes/enables</u></b>.</p>
+    <p>Let's look at an example to make this more concrete. In the following abstract:</p>
+    <div class="abstract-text">
+        <p>Sketching is a way for artists to generate ideas quickly, explore alternatives with less risk, and encourage discussions. How might computational tools amplify the abilities of artists? This paper introduces Smart Sketchpad, a digital sketchpad that uses machine learning to identify what is being sketched. The sketchpad then shows example images, color pallets, and subject information. The goal of Smart Sketchpad is to increase an artists ability to get ideas down with higher fidelity by making it easier to reference and include existing example works. Our study compares traditional sketching on a phone to Smart Sketchpad. We found that introducing examples during the sketching process leads to higher satisfaction of the sketch by the artist and an external expert.</p>
+    </div>
+    <p>The problems relate to each other in the following way:</p>
+    <ul>
+    {{#each instructionProblems}}
+      <li>{{> STInstructionProblemPair}}</li>
+    {{/each}}
+    </ul>
+    <h4>How can I tell how the problems relate to each other?</h4>
+    <p>While this might seem like a very difficult task, you can accomplish it by paying attention to the grammar in the abstract.</p>
+    <p>For example, we know that solving the problem of how to "<span class="problem-pivot">make it easier to reference and include existing examples</span>" directly accomplishes/enables "<span class="problem-pivot">increase artists ability to sketch ideas with higher fidelity</span>" because in the abstract it says that Smart Sketchpad increases "an artists ability to get ideas down with higher fidelity <b><u>BY</u></b>" making it easier to reference and include existing examples.</p> <p>Similarly, we know that solving the problem of how to "<span class="problem-pivot">identify sketches</span>" accomplishes/enables "<span class="problem-pivot">make it easier to reference and include existing examples</span>" because in the abstract, the sentence that describes the showing of examples immediately follows the sentence that describes the identification of sketches, and starts with the phrase "The sketchpad <b><u>THEN</u></b>....", which implies temporal order or causality. You can use these and other signal words/phrases like:</p>
+    <ul>
+      <li>...IN ORDER TO...</li>
+      <li>...LEADS TO...</li>
+      <li>...FIRST...</li>
+    </ul>
+    <br/>
+    <div class="finish-tutorial-container">
+      <button class="btn btn-success ideagens-button finish-tutorial">Got It!</button>
+    </div>
+  </div> <!-- End instructions content div -->
+</template>
+
+<template name="STInstructionProblemPair">
+  <p>"<span class="problem-pivot">{{problem}}</span>" directly accomplishes/enables "<span class="problem-pivot">{{parentDescr}}</span>"</p>
+</template>
+
 <template name="STAbstract">
-    <div class="row abstract" id="abstract">
-        <div class="col-md-8 col-xs-8">
+    <div class="row abstract" id="abstract" style="display:none;">
+        <div class="col-md-12 col-xs-12">
+            <p>For each of the statements in <span class="problem-pivot">dark red</span> below (the ones that you created in Part 1 of this HIT), select <em>a single problem</em> that it directly accomplishes/enables. Sometimes a problem will not have a directly described "parent" problem; in those cases, select the "Something not directly stated in the abstract" option. When you are finished, click on the "I'm Finished" button in the top right hand corner. Good luck!</p>
             <div class="abstract-text">
                 <p>Speech disfluencies are one of the main challenges of spoken language processing. Conventional disfluency detection systems deploy a hard decision, which can have a negative influence on subsequent applications such as machine translation. In this paper we suggest a novel approach in which disfluency detection is integrated into the translation process. We train a CRF model to obtain a disfluency probability for each word. The SMT decoder will then skip the potentially disfluent word based on its disfluency probability. Using the suggested scheme, the translation score of both the manual transcript and ASR output is improved by around 0.35 BLEU points compared to the CRF hard decision system.</p>
             </div>
@@ -18,25 +56,25 @@
 </template>
 
 <template name="ProblemTree">
-    <div class="problem-tree-header ideagens-section-header">
-        For each of the statements in <span class="problem-pivot">dark red</span>, select <em>a single problem</em> that it solves directly.
-    </div>
+    <!-- <div class="problem-tree-header ideagens-section-header">
+        For each of the statements in <span class="problem-pivot">dark red</span>, select <em>a single problem</em> that it directly accomplishes/enables.
+    </div> -->
 
-    <div class="problem-list">
+    <div class="problem-list" style="display:none;">
         {{#each problems}}
             {{> STProblem}}
         {{/each}}
     </div>
-    <div class="problem-entry-controls">
+    <!-- <div class="problem-entry-controls">
         <button class="btn btn-success ideagens-button submit-problem">Submit</button>
-    </div>
+    </div> -->
 </template>
 
 <template name="STProblem">
     <div class="row ideagens-label">
         <div class="col-md-4 col-xs-4">
             <div id="problem-{{_id}}">
-                <p>"<span class="problem-pivot">{{problem}}</span>" directly accomplishes...</p>
+                <p>"<span class="problem-pivot">{{problem}}</span>" directly accomplishes/enables...</p>
             </div>
         </div>
         <div class="col-md-8 col-xs-8">

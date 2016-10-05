@@ -82,6 +82,7 @@ tutorialProblems = [
     'parent': null,
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "automatically select semantically-resonant colors to represent data",
@@ -91,6 +92,7 @@ tutorialProblems = [
     'parent': "worked-example-0",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "match each data value with a unique color",
@@ -100,6 +102,7 @@ tutorialProblems = [
     'parent': "worked-example-1",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "collect representative images",
@@ -109,6 +112,7 @@ tutorialProblems = [
     'parent': "worked-example-2",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "determine value-color affinity scores",
@@ -118,6 +122,7 @@ tutorialProblems = [
     'parent': "worked-example-2",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "analyze image color distributions",
@@ -127,6 +132,7 @@ tutorialProblems = [
     'parent': "worked-example-4",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "choose optimal assignment",
@@ -136,6 +142,7 @@ tutorialProblems = [
     'parent': "worked-example-2",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "balance probability of color with how well it discriminates among data values",
@@ -145,6 +152,7 @@ tutorialProblems = [
     'parent': "worked-example-2",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "amplify the abilities of artists",
@@ -154,6 +162,7 @@ tutorialProblems = [
     'parent': null,
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "identify sketches",
@@ -163,15 +172,17 @@ tutorialProblems = [
     'parent': "instruction-example-2",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "show example images, color pallets, and subject information",
     'solution': "",
     'abstractID': "instruction-example",
     '_id': "instruction-example-2",
-    'parent': "instruction-example-3",
+    'parent': "instruction-example-4",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "increase artists ability to sketch ideas with higher fidelity",
@@ -181,14 +192,16 @@ tutorialProblems = [
     'parent': "instruction-example-0",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
   {
     'problem': "make it easier to reference and include existing examples",
     'solution': "show example images, color pallets, and subject information",
     'abstractID': "instruction-example",
     '_id': "instruction-example-4",
-    'parent': "worked-example-3",
+    'parent': "instruction-example-3",
     'isEdit': false,
     'isTrash': false,
+    'isDummy': false,
   },
 ]

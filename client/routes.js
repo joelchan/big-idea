@@ -100,6 +100,7 @@ Router.map(function () {
     onBeforeAction: function() {
       if (this.ready()) {
         logger.debug("Data ready");
+        Session.set("nextRoute", "MTurkFinalPage");
         this.next();
       }
     },
@@ -115,4 +116,27 @@ Router.map(function () {
     // }
   });
 
+  this.route('MTurkFinalPage', {
+    path: 'big-idea/finished/',
+    template: 'FinalizePage',
+    subscriptions: function() {
+      this.subscribe('myUsers');
+    },
+    onBeforeAction: function(pause) {
+        logger.debug("before action");
+        if (this.ready()) {
+          logger.debug("Data ready");
+          this.next();
+        } else {
+          logger.debug("Not ready");
+        }
+    },
+    action: function(){
+      if(this.ready())
+        this.render();
+      else
+        this.render('loading');
+    },
+
+  });
 });
