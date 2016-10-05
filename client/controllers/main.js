@@ -12,7 +12,7 @@ Template.IdeaGen.helpers({
       //console.log('no user is logged in');
       return false;
     } else {
-      return true; 
+      return true;
     }
   },
   currentUserName: function() {
@@ -20,7 +20,7 @@ Template.IdeaGen.helpers({
  * Template function returning a boolean if there is a logged in user
  * *****************************************************************/
     if (Session.get("currentUser")) {
-      return Session.get("currentUser").name;
+      return Session.get("currentUser").userName;
     } else {
       return "Anonymous";
     }
@@ -98,7 +98,7 @@ decrementTimer = function decrementTimer() {
     // Session.set("isDecrementing", false);
     //EventLogger.logEndRole();
     //exitPage();
-    
+
     Router.go(Session.get("nextPage"), Session.get("nextPageParams"));
   }
 };
@@ -124,8 +124,8 @@ decrementFluencyTimer = function decrementFluencyTimer() {
     var measure = new FluencyMeasure(answers, Session.get("currentParticipant"));
     var measureID = FluencyMeasures.insert(measure);
     if (measureID) {
-      logger.trace("Fluency measure for " + 
-        Session.get("currentParticipant")._id + 
+      logger.trace("Fluency measure for " +
+        Session.get("currentParticipant")._id +
         ": " + JSON.stringify(measure));
     } else {
       logger.debug("Failed to grab the data")
@@ -139,7 +139,7 @@ decrementFluencyTimer = function decrementFluencyTimer() {
     // Meteor.clearTimeout(handler);
     //EventLogger.logEndRole();
     //exitPage();
-    
+
     var part = Session.get("currentParticipant");
     var condName = Conditions.findOne({_id: part.conditionID}).description;
     var routeName = "MturkIdeation" + condName;
@@ -155,10 +155,10 @@ exitPage = function (destination, params) {
   ******************************************************************/
   //Run end of page functions
   //$('#submitIdea').click();
-  
+
   //Log exit
   //EventLogger.logEndIdeation(Session.get("currentParticipant"));
-  
+
   //Cleanup Navbar
   if ($('.exitStudy').length > 0) {
     $('.exitStudy').remove();

@@ -12,5 +12,24 @@ Meteor.startup(function() {
                       isDummy: p.isDummy,
                       time: new Date().getTime()});
     })
+  } else {
+    tutorialProblems.forEach(function(p) {
+      Problems.update({_id: p._id}, {$set: {problem: p.problem, solution: p.solution, abstractID: p.abstractID,
+                      parent: p.parent,
+                      isEdit: p.isEdit,
+                      isTrash: p.isTrash,
+                      isDummy: p.isDummy,
+                      time: new Date().getTime()}});
+    })
+  }
+  if(Abstracts.find().count() == 0) {
+    abstracts.forEach(function(a) {
+      var newAbstract = new Abstract(a.ID, a.abstract, a.title);
+      Abstracts.insert(newAbstract);
+    })
+  } else {
+    abstracts.forEach(function(a) {
+      Abstracts.update({abstractID: a.ID}, {$set: {content: a.abstract, title: a.title}});
+    })
   }
 });

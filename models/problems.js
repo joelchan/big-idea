@@ -8,7 +8,7 @@ Logger.setLevel('Models:Problems', 'trace');
 
 Problems = new Meteor.Collection("problems");
 
-Problem = function(problem, solution, abstractID, isDummy){
+Problem = function(problem, solution, abstractID, isDummy, userID){
   this.problem = problem;
   this.solution = solution;
   this.abstractID = abstractID;
@@ -17,6 +17,7 @@ Problem = function(problem, solution, abstractID, isDummy){
   this.isEdit = false;
   this.isTrash = false; // when user deletes a subproblem, we want to archive, not remove it completely
   this.isDummy = isDummy;
+  this.userID = userID;
 }
 
 ProblemFactory = (function() {
@@ -27,7 +28,8 @@ ProblemFactory = (function() {
       var problemTrimmed = removeCR(problem);
       var solutionTrimmed = removeCR(solution);
       if (problemTrimmed !== "") {
-        var newProblem = new Problem(problemTrimmed, solutionTrimmed, abstractID, isDummy);
+        var userID = Session.get("currentUser")._id;
+        var newProblem = new Problem(problemTrimmed, solutionTrimmed, abstractID, isDummy, userID);
         logger.trace("Creating new Problem");
         newProblem._id = Problems.insert(newProblem);
         return newProblem;

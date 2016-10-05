@@ -6,9 +6,10 @@ Logger.setLevel('Client:IdentifySubproblems', 'trace');
 // Logger.setLevel('Client:IdentifySubproblems', 'info');
 // Logger.setLevel('Client:IdentifySubproblems', 'warn');
 
-var abstractID = "dummy";
-
 Template.IdentifySubproblems.onRendered(function(){
+
+  var userID = Session.get("currentUser")._id;
+  var abstractID = Session.get("currentAbstract").abstractID;
 
   $('#example-problem-list').hide();
 
@@ -99,35 +100,28 @@ Template.Instructions.events({
   'click .finish-task': function() {
     var userProblems;
     if (Session.get("isTutorial")) {
-      userProblems = Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}}).fetch();
+      userProblems = Problems.find({abstractID: Session.get("currentAbstract").abstractID, userID: Session.get("currentUser")._id, isDummy: true}, {sort: {time: -1}}).fetch();
     } else {
-      userProblems = Problems.find({abstractID: abstractID}, {sort: {time: -1}}).fetch();
+      userProblems = Problems.find({abstractID: Session.get("currentAbstract").abstractID, userID: Session.get("currentUser")._id}, {sort: {time: -1}}).fetch();
     }
     if (userProblems.length < 1) {
       alert("Please enter at least one problem!");
     } else {
-      Router.go(Session.get("nextRoute"));
+      Router.go(Session.get("nextRoute"), {userID: Session.get("currentUser")._id,
+                                          abstractID: Session.get("currentAbstract").abstractID});
     }
     // check if we have a minimal number of problems
     // Router.go('')
   },
 })
 
-Template.STInstructionProblemPair.helpers({
-  parentDescr: function() {
-    var parent = Problems.findOne(this.parent);
-    if (parent) {
-      return parent.problem;
-    } else {
-      return this.parent;
-    }
-  }
-});
-
 Template.Abstract.helpers({
   isTutorial: function() {
     return Session.get("isTutorial");
   },
+  abstract: function() {
+    return Session.get("currentAbstract").content;
+  }
 })
 
 Template.ProblemEntry.helpers({
@@ -142,7 +136,7 @@ Template.ProblemEntry.helpers({
     }
   },
   hasAnswers: function() {
-    var userProblems = Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}}).fetch();
+    var userProblems = Problems.find({abstractID: Session.get("currentAbstract").abstractID, userID: Session.get("currentUser")._id, isDummy: true}, {sort: {time: -1}}).fetch();
     logger.trace("User problems: " + JSON.stringify(userProblems));
     if (userProblems.length > 0) {
       return true;
@@ -161,9 +155,9 @@ Template.ProblemEntry.events({
     var solutionDescr = $("#problem-solution").val();
     //Add idea to database
     if (Session.get("isTutorial")) {
-      var problem = ProblemFactory.create(problemDescr, solutionDescr, abstractID, true);
+      var problem = ProblemFactory.create(problemDescr, solutionDescr, Session.get("currentAbstract").abstractID, true);
     } else {
-      var problem = ProblemFactory.create(problemDescr, solutionDescr, abstractID, false);
+      var problem = ProblemFactory.create(problemDescr, solutionDescr, Session.get("currentAbstract").abstractID, false);
     }
 
     if (problem) {
@@ -193,16 +187,16 @@ Template.ProblemList.helpers({
   problems: function() {
     if (Session.get("isTutorial")) {
       logger.debug("We're in a tutorial");
-      return Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}}).fetch();
+      return Problems.find({abstractID: Session.get("currentAbstract").abstractID, userID: Session.get("currentUser")._id, isDummy: true}, {sort: {time: -1}}).fetch();
     } else {
-      return Problems.find({abstractID: abstractID}, {sort: {time: -1}})
+      return Problems.find({abstractID: Session.get("currentAbstract").abstractID, userID: Session.get("currentUser")._id}, {sort: {time: -1}})
     }
   },
   numProblems: function() {
     if (Session.get("isTutorial")) {
-      return Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}}).count();
+      return Problems.find({abstractID: Session.get("currentAbstract").abstractID, userID: Session.get("currentUser")._id, isDummy: true}, {sort: {time: -1}}).count();
     } else {
-      return Problems.find({abstractID: abstractID}, {sort: {time: -1}}).count();
+      return Problems.find({abstractID: Session.get("currentAbstract").abstractID, userID: Session.get("currentUser")._id}, {sort: {time: -1}}).count();
     }
   }
 });
