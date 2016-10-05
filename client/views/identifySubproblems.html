@@ -1,19 +1,70 @@
 <template name="IdentifySubproblems">
     <div class="identify-subproblems-container">
         <div class="col-md-8 col-xs-8 ideate">
+            {{> Instructions}}
             {{> Abstract}}
             {{> ProblemEntry}}
             {{> ProblemList}}
+            {{#if isTutorial}}
+              {{> ExampleProblemList}}
+            {{/if}}
         </div>
     </div>
+</template>
+
+<template name="Instructions">
+  <div class="row instructions" id="instructions">
+    <div class="col-md-12 col-xs-12">
+      <div class="ideagens-section-header">
+        Part 1: Identify Problems and Solutions: {{#if isTutorial}} Instructions {{else}} Main Task {{/if}} <span class="toggle"><a id="instructions-toggler" href="#instructions-content" data-toggle="collapse">(Show/Hide Instructions)</a></span>
+        {{#if isTutorial}}
+          <button class="btn btn-primary ideagens-button finish-task" style="display:none;">Take Me to the Task</button>
+        {{else}}
+          <button class="btn btn-primary ideagens-button finish-task">I'm Finished!</button>
+        {{/if}}
+      </div>
+      <div class="instructions-content collapse in" id="instructions-content">
+        <p>Welcome! In this part of the HIT, your job is to read an abstract for a research paper, and <b><u>find all the phrases that describe the <em>PROBLEMS</em> that the researcher is addressing in the research</u></b>, as expressed in the abstract. We also need you to <b><u>find all the terms/phrases that describe the <em>SOLUTIONS</em> that the researcher proposes for each of the PROBLEMs.</u></b> Sometimes a problem will not have a corresponding proposed solution; in those cases, it is ok to leave the "solution" field blank.</p>
+        <p>Let's look at an example to make this more concrete. In the following abstract:</p>
+        <div class="abstract-text">
+            <p>Sketching is a way for artists to generate ideas quickly, explore alternatives with less risk, and encourage discussions. How might computational tools amplify the abilities of artists? This paper introduces Smart Sketchpad, a digital sketchpad that uses machine learning to identify what is being sketched. The sketchpad then shows example images, color pallets, and subject information. The goal of Smart Sketchpad is to increase an artists ability to get ideas down with higher fidelity by making it easier to reference and include existing example works. Our study compares traditional sketching on a phone to Smart Sketchpad. We found that introducing examples during the sketching process leads to higher satisfaction of the sketch by the artist and an external expert.</p>
+        </div>
+        <br/>
+        <p>The problem-solution pairs are:</p>
+        {{#each instructionProblems}}
+          {{> ExampleProblem}}
+        {{/each}}
+        <br/>
+        <div class="ideagens-section-header">How do I find these problems?</div>
+        <p>Here are some strategies that others have found helpful for finding the problems in an abstract:</p>
+        <ul>
+          <li>Find the sentence that begins with some variant of "We introduce X". Be sure to also capture other sentences that further expand on what X does.</li>
+          <li>Find the sentence that begins with "However..." near the beginning of the abstract. A description of the problem usually follows.</li>
+          <li>Find the sentence that begins with some variant of "This paper aims to/addresses...".</li>
+          <li>Find the sentence that begins with some variant of "This paper/study examines/investigates/etc. [whether/how] X" to find the main [process/phenomenon/relationship] being studied in the paper.</li>
+        </ul>
+        <div class="finish-tutorial-container">
+          <button class="btn btn-success ideagens-button finish-tutorial">Got It!</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <template name="Abstract">
     <div class="row abstract" id="abstract">
         <div class="col-md-12 col-xs-12">
+            {{#if isTutorial}}
+              <p>Let's practice! Try to identify as many problem-solution pairs as you can in the following abstract. After you have entered at least one, you may click on the "See Answers" button to see good examples of problem-solution pairs for this abstract.</p>
+              <div class="abstract-text">
+                <p>We introduce an algorithm for automatic selection of semantically-resonant colors to represent data (e.g., using blue for data about oceans, or pink for love). Given a set of categorical values and a target color palette, our algorithm matches each data value with a unique color. Values are mapped to colors by collecting representative images, analyzing image color distributions to determine value-color affinity scores, and choosing an optimal assignment. Our affinity score balances the probability of a color with how well it discriminates among data values. A controlled study shows that expert-chosen semantically-resonant colors improve speed on chart reading tasks compared to a standard palette, and that our algorithm selects colors that lead to similar gains. A second study verifies that our algorithm effectively selects colors across a variety of data categories.</p>
+              </div>
+            {{else}}
+              <p>Please <b><u>find all the phrases that describe the <em>PROBLEMS</em> that the researcher is addressing in the research</u></b>, as expressed in the following abstract. We also need you to <b><u>find all the terms/phrases that describe the <em>SOLUTIONS</em> that the researcher proposes for each of the PROBLEMs.</u></b> Sometimes a problem will not have a corresponding proposed solution; in those cases, it is ok to leave the "solution" field blank. When you are finished, click on the "I'm Finished" button in the top right hand corner. Good luck!</p>
             <div class="abstract-text">
                 <p>Speech disfluencies are one of the main challenges of spoken language processing. Conventional disfluency detection systems deploy a hard decision, which can have a negative influence on subsequent applications such as machine translation. In this paper we suggest a novel approach in which disfluency detection is integrated into the translation process. We train a CRF model to obtain a disfluency probability for each word. The SMT decoder will then skip the potentially disfluent word based on its disfluency probability. Using the suggested scheme, the translation score of both the manual transcript and ASR output is improved by around 0.35 BLEU points compared to the CRF hard decision system.</p>
             </div>
+            {{/if}}
         </div>
     </div>
 </template>
@@ -33,20 +84,29 @@
             </form>
             <div class="problem-entry-controls">
                 <button class="btn btn-success ideagens-button submit-problem">Submit new problem</button>
+                {{#if isTutorial}}
+                  {{#if hasAnswers}}
+                    <button class="btn btn-default ideagens-button show-answers">See Answers</button>
+                  {{else}}
+                    <button class="btn btn-default ideagens-button show-answers disabled">See Answers</button>
+                  {{/if}}
+                {{/if}}
             </div>
         </div>
     </div>
 </template>
 
 <template name="ProblemList">
+  <div class="row" id="problem-list">
     <div class="problem-list-header ideagens-section-header">
-        {{numProblems}} problems
+        You've identified {{numProblems}} problems
     </div>
     <div class="problem-list">
         {{#each problems}}
-            {{> Problem}}
+          {{> Problem}}
         {{/each}}
     </div>
+  </div>
 </template>
 
 <template name="Problem">
@@ -94,10 +154,48 @@
               </div>
             </div>
           </div>
+          {{#if isReal}}
           <div class="edit-problem col-md-1 col-xs-1">
             <p><span title="Edit this problem" class="glyphicon glyphicon-edit card-edit" id="card-edit-{{_id}}"> </span></p>
             <p><span title="Delete this problem" class="glyphicon glyphicon-remove card-delete" id="card-delete-{{_id}}"> </span></p>
           </div>
+          {{/if}}
       </div>
     {{/if}}
+</template>
+
+<template name="ExampleProblemList">
+  <div class="row" id="example-problem-list">
+    <div class="problem-list-header ideagens-section-header">
+        There are {{numProblems}} previous good example problems
+    </div>
+    <div class="problem-list">
+        {{#each problems}}
+            {{> ExampleProblem}}
+        {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="ExampleProblem">
+    <div class="row example-problem" id="problem-{{_id}}">
+        <div class="problem-info col-md-11 col-xs-11">
+          <div class="row problem-descr-container">
+            <div class="col-md-1 col-xs-1 problem-descr-label">
+              <span class="ideagens-label">Problem: </span>
+            </div>
+            <div class="col-md-11 col-xs-11 problem-descr-content">
+              {{problem}}
+            </div>
+          </div>
+          <div class="row solution-descr-container">
+            <div class="col-md-1 col-xs-1 solution-descr-label">
+              <span class="ideagens-label">Solution: </span>
+            </div>
+            <div class="col-md-11 col-xs-11 solution-descr-content">
+              {{solution}}
+            </div>
+          </div>
+        </div>
+    </div>
 </template>

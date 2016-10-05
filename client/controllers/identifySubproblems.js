@@ -10,7 +10,15 @@ var abstractID = "dummy";
 
 Template.IdentifySubproblems.onRendered(function(){
 
+  $('#example-problem-list').hide();
+
   // disable idea submission during tutorial
+  if (Session.equals("isTutorial", true)) {
+    $('#abstract').hide();
+    $('#problem-entry').hide();
+    $('#problem-list').hide();
+  }
+
   $(".idea-entry input").prop("disabled", true);
   $(".idea-entry textArea").prop("disabled", true);
   $(".submit-idea").prop("disabled", true);
@@ -60,8 +68,75 @@ Template.IdentifySubproblems.onRendered(function(){
 
 });
 
-Template.ProblemEntry.helpers({
+Template.IdentifySubproblems.helpers({
+  isTutorial: function() {
+    return Session.get("isTutorial");
+  }
+})
 
+Template.IdentifySubproblems.events({
+  'click .finish-tutorial': function(event, target) {
+    $('#abstract').show();
+    $('#problem-entry').show();
+    $('#problem-list').show();
+    $('#instructions-toggler').click();
+    $('.finish-task').show();
+  },
+});
+
+Template.Instructions.helpers({
+  isTutorial: function() {
+    return Session.get("isTutorial");
+  },
+  instructionProblems: function() {
+    return Problems.find({abstractID: "instruction-example"}).fetch();
+  },
+});
+
+Template.Instructions.events({
+  'click .finish-task': function() {
+    var userProblems;
+    if (Session.get("isTutorial")) {
+      userProblems = Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}}).fetch();
+    } else {
+      userProblems = Problems.find({abstractID: abstractID}, {sort: {time: -1}}).fetch();
+    }
+    if (userProblems.length < 1) {
+      alert("Please enter at least one problem!");
+    } else {
+      Router.go("IdentifySubproblems");
+    }
+    // check if we have a minimal number of problems
+    // Router.go('')
+  },
+})
+
+Template.Abstract.helpers({
+  isTutorial: function() {
+    return Session.get("isTutorial");
+  },
+})
+
+Template.ProblemEntry.helpers({
+  isTutorial: function() {
+    return Session.get("isTutorial");
+  },
+  isReal: function() {
+    if (this.abstractID === "instruction-example" || this.abstractID === "worked-example") {
+      return false;
+    } else {
+      return true;
+    }
+  },
+  hasAnswers: function() {
+    var userProblems = Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}}).fetch();
+    logger.trace("User problems: " + JSON.stringify(userProblems));
+    if (userProblems.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 });
 
 Template.ProblemEntry.events({
@@ -72,7 +147,12 @@ Template.ProblemEntry.events({
     var problemDescr = $("#problem-problem").val();
     var solutionDescr = $("#problem-solution").val();
     //Add idea to database
-    var problem = ProblemFactory.create(problemDescr, solutionDescr, abstractID);
+    if (Session.get("isTutorial")) {
+      var problem = ProblemFactory.create(problemDescr, solutionDescr, abstractID, true);
+    } else {
+      var problem = ProblemFactory.create(problemDescr, solutionDescr, abstractID, false);
+    }
+
     if (problem) {
 
       // Clear the text field
@@ -83,17 +163,45 @@ Template.ProblemEntry.events({
       alert("Make sure all fields are filled out before submitting!");
     }
   },
+  'click .show-answers': function(e, target) {
+    logger.debug("Showing answers");
+    $('#example-problem-list').show();
+    $('html, body').animate({
+        scrollTop: $("#example-problem-list").offset().top
+    }, 1000);
+  }
 
 });
 
 Template.ProblemList.helpers({
+  isTutorial: function() {
+    return Session.get("isTutorial");
+  },
   problems: function() {
-    return Problems.find({abstractID: abstractID}, {sort: {time: -1}})
+    if (Session.get("isTutorial")) {
+      logger.debug("We're in a tutorial");
+      return Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}}).fetch();
+    } else {
+      return Problems.find({abstractID: abstractID}, {sort: {time: -1}})
+    }
   },
   numProblems: function() {
-    return Problems.find({abstractID: abstractID}).count();
+    if (Session.get("isTutorial")) {
+      return Problems.find({abstractID: abstractID, isDummy: true}, {sort: {time: -1}}).count();
+    } else {
+      return Problems.find({abstractID: abstractID}, {sort: {time: -1}}).count();
+    }
   }
 });
+
+Template.ExampleProblemList.helpers({
+  problems: function() {
+    return Problems.find({abstractID: "worked-example"}, {sort: {time: -1}}).fetch();
+  },
+  numProblems: function() {
+    return Problems.find({abstractID: "worked-example"}, {sort: {time: -1}}).count();
+  }
+})
 
 Template.Problem.events({
   'click .card-edit': function(event, target) {
