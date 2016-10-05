@@ -12,7 +12,7 @@ Router.map(function () {
    * Define custom routes
    * *************************************************************/
    this.route('Land', {
-       path: 'big-idea/start',
+       path: '/',
        template: 'land',
        subscriptions: function()  {
         //  this.subscribe("documents");

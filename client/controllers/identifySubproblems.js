@@ -58,16 +58,16 @@ Template.IdentifySubproblems.onRendered(function(){
   });
 
   // Initialize the tour
-  logger.debug("Initializing tutorial");
-  identifyProblemsTour.init();
+  // logger.debug("Initializing tutorial");
+  // identifyProblemsTour.init();
 
   // Start the tour
-  logger.debug("Starting tutorial");
-  identifyProblemsTour.start();
+  // logger.debug("Starting tutorial");
+  // identifyProblemsTour.start();
 
-  if(identifyProblemsTour.ended()) {
+  // if(identifyProblemsTour.ended()) {
     // identifyProblemsTour.restart();
-  }
+  // }
 
 });
 
