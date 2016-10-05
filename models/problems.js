@@ -41,8 +41,8 @@ ProblemFactory = (function() {
       Problems.update({_id: problemID}, {$set: {isEdit: false, problem: problemTrimmed, solution: solutionTrimmed}});
     },
     // add a parent of the problem
-    addParent: function(problemID, parentID) {
-
+    addParent: function(childID, parentID) {
+      Problems.update({_id: childID}, {$set: {parent: parentID}});
     },
     archive: function(problemID) {
       Problems.update({_id: problemID}, {$set: {isTrash: true}});

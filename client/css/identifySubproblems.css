@@ -97,7 +97,7 @@
 }
 
 .identify-subproblems-container .problem-list {
-    max-height: 200px;
+    max-height: 500px;
     overflow: scroll;
     overflow-x: hidden;
     /*background-color: #E2E2E2;*/
@@ -105,7 +105,7 @@
 }
 
 .identify-subproblems-container .example-problem-list {
-    max-height: 200px;
+    max-height: 500px;
     overflow-x: hidden;
     overflow: scroll;
     /*background-color: #E2E2E2;*/

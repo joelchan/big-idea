@@ -17,6 +17,8 @@ Template.IdentifySubproblems.onRendered(function(){
     $('#abstract').hide();
     $('#problem-entry').hide();
     $('#problem-list').hide();
+    $('.problem-list').css('max-height', '200px');
+    $('.example-problem-list').css('max-height', '200px')
   }
 
   $(".idea-entry input").prop("disabled", true);
@@ -104,7 +106,7 @@ Template.Instructions.events({
     if (userProblems.length < 1) {
       alert("Please enter at least one problem!");
     } else {
-      Router.go("IdentifySubproblems");
+      Router.go(Session.get("nextRoute"));
     }
     // check if we have a minimal number of problems
     // Router.go('')

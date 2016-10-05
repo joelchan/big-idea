@@ -22,6 +22,7 @@ Router.map(function () {
        if (this.ready()) {
          logger.debug("Data ready");
          Session.set("isTutorial", true);
+         Session.set("nextRoute", "IdentifySubproblems");
          this.next();
        }
      },
@@ -48,6 +49,7 @@ Router.map(function () {
       if (this.ready()) {
         logger.debug("Data ready");
         Session.set("isTutorial", false);
+        Session.set("nextRoute", "SubproblemTree");
         this.next();
       }
     },
@@ -92,7 +94,7 @@ Router.map(function () {
     path: 'big-idea/tree/',
     template: 'SubproblemTree',
     subscriptions: function() {
-      this.subscribe('problems');
+      this.subscribe('problemsNoDummy');
       // this.subscribe('abstracts').wait();
     },
     onBeforeAction: function() {

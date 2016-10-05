@@ -42,9 +42,14 @@
         <div class="col-md-8 col-xs-8">
             <form>
                 <ul class="problem-choices">
-                {{#each possibleSubproblems}}
-                    {{> STProblemChoices}}
-                {{/each}}
+                  {{#each possibleParents}}
+                      {{> STProblemChoices}}
+                  {{/each}}
+                  <li>
+                    <input class="inferred-parent" type="radio" name="problem-parent" id="pivot-problem-{{_id}}-root" data-child="{{_id}}" data-id="root"/>
+                    <label class="inferred-parent" for="problem-{{_id}}">Something not directly stated in the abstract</label>
+                    <input class="inferred-parent" type="text" name="implicit-root" id="implicit-root-for-{{_id}}" size="50" placeholder="(Optional) What do you think it is?">
+                  </li>
                 </ul>
             </form>
         </div>
@@ -53,7 +58,7 @@
 
 <template name="STProblemChoices">
           <li>
-            <input type="radio" name="pivot-{{getPivotId}}" id="pivot-{{getPivotId}}-problem-{{_id}}" data-child="{{getPivotId}}" data-id="{{_id}}"/>
+            <input class="real-parent" type="radio" name="problem-parent" id="pivot-{{getPivotId}}-problem-{{_id}}" data-child="{{getPivotId}}" data-id="{{_id}}"/>
             <label for="pivot-{{getPivotId}}-problem-{{_id}}">{{problem}}</label>
           </li>
 </template>

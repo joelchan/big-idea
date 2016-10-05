@@ -9,6 +9,11 @@ ul.problem-choices li label {
     font-weight: normal;
 }
 
+.inferred-parent {
+  font-weight: normal;
+  font-style: italic;
+}
+
 .problem-pivot {
     font-style: italic;
     color: maroon;

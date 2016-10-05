@@ -52,11 +52,11 @@ Template.SubproblemTree.onRendered(function(){
 
   // Start the tour
   logger.debug("Starting tutorial");
-  subproblemTreeTour.start();
+  // subproblemTreeTour.start();
 
-  if(subproblemTreeTour.ended()) {
-    subproblemTreeTour.restart();
-  }
+  // if(subproblemTreeTour.ended()) {
+    // subproblemTreeTour.restart();
+  // }
 
 });
 
@@ -72,17 +72,36 @@ Template.ProblemTree.helpers({
 Template.ProblemTree.events({
   'click .submit-problem': function(event, target) {
     //var problemID = event.currentTarget.id.split("-")[2];
-    Problems.update({_id: problemID},{$set: {isEdit: true}});
+    var parents = $('input[name="problem-parent"]:checked');
+    logger.trace("All selected parents: " + parents);
+    var numChildren = Problems.find({abstractID: abstractID}, {sort: {time: -1}}).count();
+    if (parents.length < numChildren) {
+      alert("Each statement must be tied to a parent problem!");
+    } else {
+      parents.each(function(index) {
+        var child_id = $(this).attr("data-child");
+        var parent_id = $(this).attr("data-id");
+        logger.trace("This child is " + child_id);
+        if ($(this).hasClass("inferred-parent")) {
+          var inferred_parent = $('#implicit-root-for-' + child_id).val();
+          parent_id = "Inferred-parent: " + inferred_parent
+          logger.trace(parent_id);
+        }
+        ProblemFactory.addParent(child_id, parent_id);
+      });
+    }
+
+    // Problems.update({_id: problemID},{$set: {isEdit: true}});
   },
 });
 
 Template.STProblem.helpers({
-  possibleSubproblems: function() {
-    logger.debug("Calling possibleSubproblems()");
+  possibleParents: function() {
+    logger.debug("Calling possibleParents()");
     var problemCursor = Problems.find({
         abstractID: abstractID, _id: {$not: this._id}}, {sort: {time: 1}}
       );
-    logger.debug("Finishing possibleSubproblems() call");
+    logger.debug("Finishing possibleParents() call");
     return problemCursor;
   }
 });
