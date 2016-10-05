@@ -8,10 +8,10 @@ Logger.setLevel('Client:Routes', 'trace');
 
 //Maps routes to templates
 Router.map(function () {
-  this.route("Home", {
-      path: '/',
-      template: 'HcompLoginPage',
-  });
+  // this.route("Home", {
+  //     path: '/',
+  //     template: 'HcompLoginPage',
+  // });
   this.route("landingPageHome", {
       path: '/landingPageHome',
       template: 'LandingPage',
@@ -45,7 +45,7 @@ Router.map(function () {
     template: 'FacilitatorSurvey'
   });
   this.route('NoParticipation', {
-    path: 'participation/', 
+    path: 'participation/',
     template: 'NoParticipationPage',
   });
 });
